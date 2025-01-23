@@ -46,3 +46,8 @@ header a:nth-of-type(2) {
 .education-list li:first-child {
   font-style: italic;
 }
+
+.skills ul {
+  list-style-type: none;
+  padding-left: 0;
+}
