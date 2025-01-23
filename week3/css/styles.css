@@ -52,3 +52,7 @@ header a:nth-of-type(2) {
   list-style-type: none;
   padding-left: 20px; /* Ensures consistent alignment */
 }
+
+.experience > ul > li:first-child ~ li {
+  color: darkGreen;
+}
