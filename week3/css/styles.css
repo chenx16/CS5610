@@ -22,6 +22,6 @@ header h1 {
 }
 
 .experience, .education {
-  border: 2px dashed;
+  border: 2px dashed orange;
   margin: 10px 0;
 }
