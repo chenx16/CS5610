@@ -58,11 +58,15 @@ header a:nth-of-type(2) {
 }
 
 a[href$=".edu"]::before {
-  content: url('../images/link.png');
+  content: url("../images/link.png");
   margin-right: 5px;
 }
 
 .skills ul li:last-child {
   font-size: 1.3em; /* 1.3 times the font size of the root element */
   background-color: rgba(120, 120, 120, 0.2); /* 20% transparency */
+}
+
+header a:visited {
+  color: rgb(237, 122, 127);
 }
