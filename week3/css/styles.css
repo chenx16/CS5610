@@ -29,3 +29,7 @@ header h1 {
 a[href*="github"]:hover {
   color: crimson;
 }
+
+h2::first-letter {
+  font-size: 3em;
+}
