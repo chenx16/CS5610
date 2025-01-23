@@ -33,3 +33,8 @@ a[href*="github"]:hover {
 h2::first-letter {
   font-size: 3em;
 }
+
+a[href*="github"]::after {
+  content: url('../images/GitHub-Mark-32px.png');
+  margin-left: 5px;
+}
