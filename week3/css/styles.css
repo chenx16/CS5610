@@ -42,3 +42,7 @@ a[href*="github"]::after {
 header a:nth-of-type(2) {
   margin-left: 20px;
 }
+
+.education-list li:first-child {
+  font-style: italic;
+}
