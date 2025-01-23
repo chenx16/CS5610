@@ -6,11 +6,10 @@ body {
 }
 
 header {
-    text-align: center;
-    border-bottom: 2px dotted darkslateblue;
-    padding-bottom: 5px;
-  }
-  
+  text-align: center;
+  border-bottom: 2px dotted darkslateblue;
+  padding-bottom: 5px;
+}
 
 header h1 {
   color: #1050aa;
@@ -19,6 +18,11 @@ header h1 {
 }
 
 #intro {
-    font-weight: bold;
-  }
-  
+  font-weight: bold;
+}
+
+.experience,
+.education {
+  border: 2px dashed;
+  margin: 10px 0;
+}
