@@ -28,6 +28,11 @@ function displayOrderSummary(order) {
 }
 
 function placeOrder(flavor, size, toppings) {
+    if (size === "") {
+        console.error("Please select a valid size.");
+        return;
+    }
+
     // Filter out empty values (to remove "--Please choose toppings--")
     toppings = toppings.filter(topping => topping !== "");
 
