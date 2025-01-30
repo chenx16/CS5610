@@ -25,3 +25,8 @@ function calculateTotalPrice(billAmount, taxRate = 0.12, tipRate = 0.15) {
   let tipAmount = billAmount * tipRate;
   return billAmount + taxAmount + tipAmount;
 }
+
+function logTotalPrice(calculationFunction, billAmount) {
+  let total = calculationFunction(billAmount);
+  console.log(`Total Price: $${total.toFixed(2)}`);
+}
