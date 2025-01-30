@@ -26,17 +26,25 @@ function calculateTotalPrice(billAmount, taxRate = 0.12, tipRate = 0.15) {
   return billAmount + taxAmount + tipAmount;
 }
 
+
 function logTotalPrice(calculationFunction, billAmount) {
-  if (isNaN(parseFloat(billAmount)) || billAmount <= 0) {
-    console.error("Invalid bill amount. Please enter a valid positive number.");
-    return;
-  }
   let total = calculationFunction(billAmount);
   console.log(`Total Price: $${total.toFixed(2)}`);
 }
 
-logTotalPrice(calculateTotalPrice, 100);
 
+// Test 1: Default tax and tip rates
+let billAmount1 = 100;
+let totalPrice1 = calculateTotalPrice(billAmount1);
+console.log(`For a bill of $${billAmount1}, the total price including tax and tip is: $${totalPrice1.toFixed(2)}`);
+
+// Test 2: Custom tax and tip rates
+let billAmount2 = 200;
+let customTaxRate = 0.10;
+let customTipRate = 0.18;
+
+let totalPrice2 = calculateTotalPrice(billAmount2, customTaxRate, customTipRate);
+console.log(`For a bill of $${billAmount2}, with a tax rate of ${customTaxRate * 100}% and a tip rate of ${customTipRate * 100}%, the total price is: $${totalPrice2.toFixed(2)}`);
 
 let students = [
   { name: "Cristian", age: 30, location: "Vancouver" },
