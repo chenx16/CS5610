@@ -70,3 +70,9 @@ a[href$=".edu"]::before {
 header a:visited {
   color: rgb(237, 122, 127);
 }
+
+main {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 20px;
+}
