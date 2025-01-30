@@ -27,8 +27,19 @@ function calculateTotalPrice(billAmount, taxRate = 0.12, tipRate = 0.15) {
 }
 
 function logTotalPrice(calculationFunction, billAmount) {
+  if (isNaN(parseFloat(billAmount)) || billAmount <= 0) {
+    console.error("Invalid bill amount. Please enter a valid positive number.");
+    return;
+  }
   let total = calculationFunction(billAmount);
   console.log(`Total Price: $${total.toFixed(2)}`);
 }
 
 logTotalPrice(calculateTotalPrice, 100);
+
+
+let students = [
+  { name: "Cristian", age: 30, location: "Vancouver" },
+  { name: "James", age: 40, location: "Toronto" },
+  { name: "Garry", age: 20, location: "Vancouver" }
+];
