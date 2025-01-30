@@ -19,3 +19,9 @@ do {
 } while (!userName || userName.length === 1 || !isNaN(userName));
 
 alert(`Welcome, ${userName}!`);
+
+function calculateTotalPrice(billAmount, taxRate = 0.12, tipRate = 0.15) {
+  let taxAmount = billAmount * taxRate;
+  let tipAmount = billAmount * tipRate;
+  return billAmount + taxAmount + tipAmount;
+}
