@@ -30,3 +30,5 @@ function logTotalPrice(calculationFunction, billAmount) {
   let total = calculationFunction(billAmount);
   console.log(`Total Price: $${total.toFixed(2)}`);
 }
+
+logTotalPrice(calculateTotalPrice, 100);
