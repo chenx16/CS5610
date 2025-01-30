@@ -39,5 +39,8 @@ main {
 .tags {
   display: flex;
   flex-wrap: wrap;
+  justify-content: center; /* Center tags horizontally */
   gap: 5px;
+  padding: 10px 0;
 }
+
