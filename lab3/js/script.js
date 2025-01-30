@@ -27,14 +27,28 @@ function displayOrderSummary(order) {
     console.log(`Total Price: $${order.finalPrice.toFixed(2)}`);
 }
 
-function placeOrder(flavor, size, toppings) {
+function getSelectedToppings() {
+    let toppingsSelect = document.getElementById("toppings");
+    let selectedToppings = [];
+
+    // Loop through options and collect selected values
+    for (let option of toppingsSelect.options) {
+        if (option.selected && option.value !== "") {
+            selectedToppings.push(option.value);
+        }
+    }
+    return selectedToppings;
+}
+
+function placeOrder() {
+    let flavor = document.getElementById("flavor").value;
+    let size = document.getElementById("size").value;
+    let toppings = getSelectedToppings(); // Now correctly retrieves multiple toppings
+
     if (size === "") {
         console.error("Please select a valid size.");
         return;
     }
-
-    // Filter out empty values (to remove "--Please choose toppings--")
-    toppings = toppings.filter(topping => topping !== "");
 
     let finalPrice = calculateTotalPrice(flavor, size, toppings);
     let order = { flavor, size, toppings, finalPrice };
