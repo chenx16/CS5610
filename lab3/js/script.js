@@ -28,10 +28,14 @@ function displayOrderSummary(order) {
 }
 
 function placeOrder(flavor, size, toppings) {
+    // Filter out empty values (to remove "--Please choose toppings--")
+    toppings = toppings.filter(topping => topping !== "");
+
     let finalPrice = calculateTotalPrice(flavor, size, toppings);
     let order = { flavor, size, toppings, finalPrice };
     displayOrderSummary(order);
 }
+
 
 // Test Case:
 function testOrder() {

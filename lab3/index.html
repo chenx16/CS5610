@@ -1,41 +1,41 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Boba Tea Order Form</title>
-    <link rel="stylesheet" href="./css/styles.css">
-</head>
-<body>
-
+    <link rel="stylesheet" href="./css/styles.css" />
+  </head>
+  <body>
     <h1>Boba Tea Order Form</h1>
     <div class="form-container">
-        <form id="bobaForm">
-            <label for="flavor">Choose a flavor:</label>
-            <select id="flavor">
-                <option value="original">Original</option>
-                <option value="mango">Mango</option>
-                <option value="strawberry">Strawberry</option>
-            </select>
+      <form id="bobaForm">
+        <label for="flavor">Choose a flavor:</label>
+        <select id="flavor">
+          <option value="original">Original</option>
+          <option value="mango">Mango</option>
+          <option value="strawberry">Strawberry</option>
+        </select>
 
-            <label for="size">Choose a size:</label>
-            <select id="size">
-                <option value="small">Small</option>
-                <option value="medium">Medium</option>
-                <option value="large">Large</option>
-            </select>
+        <label for="size">Choose a size:</label>
+        <select id="size">
+          <option value="small">Small</option>
+          <option value="medium">Medium</option>
+          <option value="large">Large</option>
+        </select>
 
-            <label for="toppings">Choose toppings:</label>
-            <select id="toppings" multiple>
-                <option value="boba">Boba</option>
-                <option value="jelly">Jelly</option>
-                <option value="pudding">Pudding</option>
-            </select>
+        <label for="toppings">Choose toppings:</label>
+        <select id="toppings" multiple>
+          <option value="" disabled selected>--Please choose toppings--</option>
+          <option value="boba">Boba</option>
+          <option value="jelly">Jelly</option>
+          <option value="pudding">Pudding</option>
+        </select>
 
-            <button type="button" onclick="testOrder()">Place Order</button>
-        </form>
+        <button type="button" onclick="testOrder()">Place Order</button>
+      </form>
     </div>
 
     <script src="./js/script.js"></script>
-</body>
+  </body>
 </html>
