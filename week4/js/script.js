@@ -43,3 +43,7 @@ let students = [
   { name: "James", age: 40, location: "Toronto" },
   { name: "Garry", age: 20, location: "Vancouver" }
 ];
+
+function findStudentsInVancouver(students) {
+  return students.filter(student => student.location === "Vancouver");
+}
