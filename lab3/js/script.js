@@ -56,14 +56,6 @@ function placeOrder() {
 }
 
 
-// Test Case:
-function testOrder() {
-    let testFlavor = "original";
-    let testSize = "medium";
-    let testToppings = ["boba", "jelly"];
-    placeOrder(testFlavor, testSize, testToppings);
-}
-
 function validateSelections() {
     let flavor = document.getElementById("flavorSelect").value;
     let size = document.getElementById("sizeSelect").value;
@@ -76,3 +68,11 @@ function validateSelections() {
 }
 
 document.getElementById("placeOrderButton").addEventListener("click", placeOrder);
+
+// Test Case:
+function testOrder() {
+    document.getElementById("flavorSelect").value = "original";
+    document.getElementById("sizeSelect").value = "medium";
+    document.getElementById("toppingsSelect").value = ["boba", "jelly"];
+    placeOrder(); // Now correctly calls the updated function
+}
