@@ -23,3 +23,29 @@ function calculateArea(radius) {
 // Call the functions when the script loads
 let radius = getRadius();
 calculateArea(radius);
+
+// Function to populate the unordered list with shopping items
+function populateShoppingList(items) {
+    let ul = document.querySelector(".shopping");
+
+    if (!ul) {
+        console.error("Shopping list element not found.");
+        return;
+    }
+
+    // Clear existing items to prevent duplicates
+    ul.innerHTML = "";
+
+    // Add each item as a list element
+    items.forEach(item => {
+        let li = document.createElement("li");
+        li.textContent = item;
+        ul.appendChild(li);
+    });
+}
+
+// Hardcoded array of shopping items
+let shoppingItems = ["bread", "cheese", "green pepper"];
+
+// Call the function to populate the list
+populateShoppingList(shoppingItems);
