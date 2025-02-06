@@ -74,3 +74,5 @@ function validateSelections() {
     }
     return true;
 }
+
+document.getElementById("placeOrderButton").addEventListener("click", placeOrder);
