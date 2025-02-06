@@ -41,14 +41,11 @@ function getSelectedToppings() {
 }
 
 function placeOrder() {
-    let flavor = document.getElementById("flavor").value;
-    let size = document.getElementById("size").value;
-    let toppings = getSelectedToppings(); // Now correctly retrieves multiple toppings
+    if (!validateSelections()) return;
 
-    if (size === "") {
-        console.error("Please select a valid size.");
-        return;
-    }
+    let flavor = document.getElementById("flavorSelect").value;
+    let size = document.getElementById("sizeSelect").value;
+    let toppings = getSelectedToppings(); 
 
     let finalPrice = calculateTotalPrice(flavor, size, toppings);
     let order = { flavor, size, toppings, finalPrice };
