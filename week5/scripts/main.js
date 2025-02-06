@@ -80,3 +80,38 @@ function highlightGreenItems() {
 // Apply styles when the page loads
 applySquareListClass();
 highlightGreenItems();
+
+// Function to toggle button text
+function toggleButtonText() {
+    let button = document.getElementById("updateImage");
+    if (button) {
+        button.textContent = button.textContent === "Click Me!" ? "clicked!" : "Click Me!";
+    }
+}
+
+// Function to update image attributes (runs only once)
+function updateImage() {
+    let img = document.getElementById("shoppingCart");
+    if (img) {
+        img.src = "images/shoppingCart.png";  // Update the image path
+        img.alt = "Shopping Cart";
+        img.width = 200;
+        img.height = 200;
+    }
+
+    // Remove the event listener after it runs once
+    updateImageButton.removeEventListener("click", updateImage);
+}
+
+// Get the button element
+let updateImageButton = document.getElementById("updateImage");
+
+// Add event listener for toggling text
+if (updateImageButton) {
+    updateImageButton.addEventListener("click", toggleButtonText);
+}
+
+// Add event listener for updating the image (only runs once)
+if (updateImageButton) {
+    updateImageButton.addEventListener("click", updateImage, { once: true });
+}
