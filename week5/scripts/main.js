@@ -19,3 +19,7 @@ function calculateArea(radius) {
         document.getElementById("result").textContent = `The area of the circle is: ${area.toFixed(2)}`;
     }
 }
+
+// Call the functions when the script loads
+let radius = getRadius();
+calculateArea(radius);
