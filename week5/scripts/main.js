@@ -115,3 +115,16 @@ if (updateImageButton) {
 if (updateImageButton) {
     updateImageButton.addEventListener("click", updateImage, { once: true });
 }
+
+// Function to change background color based on button text
+function changeBackgroundColor(event) {
+    let color = event.target.textContent.toLowerCase(); // Get button text and convert to lowercase
+    document.body.style.backgroundColor = color;
+}
+
+// Attach event listener to all color buttons
+document.querySelectorAll("button").forEach(button => {
+    if (["Red", "Blue", "Green"].includes(button.textContent)) {
+        button.addEventListener("mouseover", changeBackgroundColor);
+    }
+});
