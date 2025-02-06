@@ -128,3 +128,19 @@ document.querySelectorAll("button").forEach(button => {
         button.addEventListener("mouseover", changeBackgroundColor);
     }
 });
+
+// Event delegation for color buttons (mouseover event)
+document.getElementById("color-buttons").addEventListener("mouseover", (event) => {
+    if (event.target.tagName === "BUTTON") {
+        event.target.style.backgroundColor = "green"; // Change button background to green
+    }
+});
+
+// Event delegation for shopping list (click event to toggle strikethrough)
+document.querySelector(".shopping").addEventListener("click", (event) => {
+    if (event.target.tagName === "LI") {
+        event.target.innerHTML = event.target.innerHTML.includes("<del>")
+            ? event.target.textContent // Remove strikethrough if already applied
+            : `<del>${event.target.textContent}</del>`; // Apply strikethrough
+    }
+});
