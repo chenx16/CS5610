@@ -49,3 +49,34 @@ let shoppingItems = ["bread", "cheese", "green pepper"];
 
 // Call the function to populate the list
 populateShoppingList(shoppingItems);
+
+// Function to change list marker type to square using classList.add()
+function applySquareListClass() {
+    let ul = document.querySelector(".shopping");
+    if (ul) {
+        ul.classList.add("squareList");
+    }
+}
+
+// Function to change list marker type using setAttribute()
+function applySquareListUsingAttribute() {
+    let ul = document.querySelector(".shopping");
+    if (ul) {
+        ul.setAttribute("class", "shopping squareList");
+    }
+}
+
+// Function to color list items containing "green"
+function highlightGreenItems() {
+    let listItems = document.querySelectorAll("li");
+    
+    listItems.forEach(li => {
+        if (li.textContent.toLowerCase().includes("green")) {
+            li.classList.add("green-text");
+        }
+    });
+}
+
+// Apply styles when the page loads
+applySquareListClass();
+highlightGreenItems();
