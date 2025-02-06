@@ -37,15 +37,17 @@ button:hover {
     background-color: #0056b3;
 }
 
+
 .summary-container {
     background: white;
     padding: 20px;
-    max-width: 400px;
-    margin: 20px;
-    text-align: left;
+    max-width: 400px; /* Keep width consistent with form */
+    margin: 20px auto; /* Add space to separate from form */
     border-radius: 10px;
-    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+    text-align: left;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1); /* Add shadow for separate effect */
 }
+
 
 .summary-container h2 {
     font-size: 24px;
