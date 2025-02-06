@@ -31,7 +31,7 @@ function displayOrderSummary(order) {
 
 
 function getSelectedToppings() {
-    let toppingsSelect = document.getElementById("toppings");
+    let toppingsSelect = document.getElementById("toppingsSelect"); // Corrected ID
     let selectedToppings = [];
 
     // Loop through options and collect selected values
