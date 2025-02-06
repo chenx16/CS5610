@@ -81,12 +81,34 @@ function highlightGreenItems() {
 applySquareListClass();
 highlightGreenItems();
 
-// Function to toggle button text
+// Get the button element (Declare once globally)
+const updateImageButton = document.getElementById("updateImage");
+
+// Function to toggle button text and store in localStorage
 function toggleButtonText() {
-    let button = document.getElementById("updateImage");
-    if (button) {
-        button.textContent = button.textContent === "Click Me!" ? "clicked!" : "Click Me!";
+    if (updateImageButton) {
+        let newText = updateImageButton.textContent === "Click Me!" ? "clicked!" : "Click Me!";
+        updateImageButton.textContent = newText;
+        localStorage.setItem("updateImageButtonText", newText); // Save to localStorage
     }
+}
+
+// Function to restore button text from localStorage on page load
+function restoreButtonText() {
+    if (updateImageButton) {
+        let savedText = localStorage.getItem("updateImageButtonText");
+        if (savedText) {
+            updateImageButton.textContent = savedText;
+        }
+    }
+}
+
+// Restore button text when the page loads
+document.addEventListener("DOMContentLoaded", restoreButtonText);
+
+// Add event listener for toggling text (Ensuring it's attached only once)
+if (updateImageButton) {
+    updateImageButton.addEventListener("click", toggleButtonText);
 }
 
 // Function to update image attributes (runs only once)
@@ -103,18 +125,11 @@ function updateImage() {
     updateImageButton.removeEventListener("click", updateImage);
 }
 
-// Get the button element
-let updateImageButton = document.getElementById("updateImage");
-
-// Add event listener for toggling text
-if (updateImageButton) {
-    updateImageButton.addEventListener("click", toggleButtonText);
-}
-
-// Add event listener for updating the image (only runs once)
+// Attach event listener for image update (only runs once)
 if (updateImageButton) {
     updateImageButton.addEventListener("click", updateImage, { once: true });
 }
+
 
 // Function to change background color based on button text
 function changeBackgroundColor(event) {
@@ -144,25 +159,3 @@ document.querySelector(".shopping").addEventListener("click", (event) => {
             event.target.style.textDecoration === "line-through" ? "none" : "line-through";
     }
 });
-
-// Function to toggle button text and store in localStorage
-function toggleButtonText() {
-    if (updateImageButton) {
-        let newText = updateImageButton.textContent === "Click Me!" ? "clicked!" : "Click Me!";
-        updateImageButton.textContent = newText;
-        localStorage.setItem("updateImageButtonText", newText); // Save to localStorage
-    }
-}
-
-// Function to restore button text from localStorage on page load
-function restoreButtonText() {
-    if (updateImageButton) {
-        let savedText = localStorage.getItem("updateImageButtonText");
-        if (savedText) {
-            updateImageButton.textContent = savedText;
-        }
-    }
-}
-
-// Restore button text when the page loads
-document.addEventListener("DOMContentLoaded", restoreButtonText);
