@@ -63,3 +63,14 @@ function testOrder() {
     let testToppings = ["boba", "jelly"];
     placeOrder(testFlavor, testSize, testToppings);
 }
+
+function validateSelections() {
+    let flavor = document.getElementById("flavorSelect").value;
+    let size = document.getElementById("sizeSelect").value;
+
+    if (!flavor || !size) {
+        alert("Please select both a flavor and a size before placing your order.");
+        return false;
+    }
+    return true;
+}
