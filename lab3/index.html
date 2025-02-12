@@ -10,32 +10,37 @@
     <h1>Boba Tea Order Form</h1>
     <div class="form-container">
       <form id="bobaForm">
-        <label for="flavor">Choose a flavor:</label>
-        <select id="flavor">
+        <label for="flavorSelect">Choose a flavor:</label>
+        <select id="flavorSelect">
+          <option value="" disabled selected>--Please choose a flavor--</option>
           <option value="original">Original</option>
           <option value="mango">Mango</option>
           <option value="strawberry">Strawberry</option>
         </select>
 
-        <label for="size">Choose a size:</label>
-        <select id="size">
+        <label for="sizeSelect">Choose a size:</label>
+        <select id="sizeSelect">
           <option value="" disabled selected>--Please choose a size--</option>
           <option value="small">Small</option>
           <option value="medium">Medium</option>
           <option value="large">Large</option>
         </select>
 
-        <label for="toppings">Choose toppings:</label>
-        <select id="toppings" multiple>
-            <option value="" disabled>--Please choose toppings--</option>
-            <option value="boba">Boba</option>
-            <option value="jelly">Jelly</option>
-            <option value="pudding">Pudding</option>
+        <label for="toppingsSelect">Choose toppings:</label>
+        <select id="toppingsSelect" multiple>
+          <option value="" disabled>--Please choose toppings--</option>
+          <option value="boba">Boba</option>
+          <option value="jelly">Jelly</option>
+          <option value="pudding">Pudding</option>
         </select>
-        
 
-        <button type="button" onclick="testOrder()">Place Order</button>
+        <button id="placeOrderButton" type="button">Place Order</button>
       </form>
+    </div>
+
+    <div class="summary-container">
+      <h2>Order Summary</h2>
+      <p id="orderSummary">Your order details will appear here.</p>
     </div>
 
     <script src="./js/script.js"></script>

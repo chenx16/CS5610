@@ -23,12 +23,15 @@ function calculateTotalPrice(flavor, size, toppings) {
 }
 
 function displayOrderSummary(order) {
-    console.log(`You have ordered a ${order.size} ${order.flavor} boba with these toppings: ${order.toppings.join(", ")}`);
-    console.log(`Total Price: $${order.finalPrice.toFixed(2)}`);
+    let toppingsText = order.toppings.length > 0 ? `with these toppings: ${order.toppings.join(" ")}` : "with no toppings";
+    document.getElementById("orderSummary").innerText = 
+        `You have ordered a ${order.size} ${order.flavor} boba ${toppingsText}. ` +
+        `Total Price: $${order.finalPrice.toFixed(2)}`;
 }
 
+
 function getSelectedToppings() {
-    let toppingsSelect = document.getElementById("toppings");
+    let toppingsSelect = document.getElementById("toppingsSelect"); // Corrected ID
     let selectedToppings = [];
 
     // Loop through options and collect selected values
@@ -41,14 +44,11 @@ function getSelectedToppings() {
 }
 
 function placeOrder() {
-    let flavor = document.getElementById("flavor").value;
-    let size = document.getElementById("size").value;
-    let toppings = getSelectedToppings(); // Now correctly retrieves multiple toppings
+    if (!validateSelections()) return;
 
-    if (size === "") {
-        console.error("Please select a valid size.");
-        return;
-    }
+    let flavor = document.getElementById("flavorSelect").value;
+    let size = document.getElementById("sizeSelect").value;
+    let toppings = getSelectedToppings(); 
 
     let finalPrice = calculateTotalPrice(flavor, size, toppings);
     let order = { flavor, size, toppings, finalPrice };
@@ -56,10 +56,23 @@ function placeOrder() {
 }
 
 
+function validateSelections() {
+    let flavor = document.getElementById("flavorSelect").value;
+    let size = document.getElementById("sizeSelect").value;
+
+    if (!flavor || !size) {
+        alert("Please select both a flavor and a size before placing your order.");
+        return false;
+    }
+    return true;
+}
+
+document.getElementById("placeOrderButton").addEventListener("click", placeOrder);
+
 // Test Case:
 function testOrder() {
-    let testFlavor = "original";
-    let testSize = "medium";
-    let testToppings = ["boba", "jelly"];
-    placeOrder(testFlavor, testSize, testToppings);
+    document.getElementById("flavorSelect").value = "original";
+    document.getElementById("sizeSelect").value = "medium";
+    document.getElementById("toppingsSelect").value = ["boba", "jelly"];
+    placeOrder(); // Now correctly calls the updated function
 }
