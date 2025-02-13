@@ -5,5 +5,6 @@ function log()
 }
 
 module.exports = {
+    version,
     log,
  };
