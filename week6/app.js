@@ -27,6 +27,7 @@ console.log('Logger version:', logger.version);
 
 const express = require('express');
 const app = express();
+const tasksRouter = require('./routes/tasks'); // Import tasks router
 
 // Serve static files from the "public" folder
 app.use(express.static('public'));
@@ -40,6 +41,16 @@ app.get('/', (req, res) => {
 app.get('/tasks', (req, res) => {
     res.send('<h1>List of all the tasks</h1>');
 });
+
+
+// Set Pug as the view engine
+app.set('view engine', 'pug');
+
+// Specify the folder for Pug templates
+app.set('views', './views');
+
+// Mount the tasks router at /tasks
+app.use('/tasks', tasksRouter);
 
 // Route to handle taskId parameter
 app.get('/tasks/:taskId', (req, res) => {
