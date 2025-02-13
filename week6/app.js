@@ -1,5 +1,4 @@
 const fs = require('fs');
-
 // Define the file path and message
 const filePath = 'message.txt';
 const message = 'Hello, this is a message written using Node.js!';
@@ -21,3 +20,6 @@ fs.writeFile(filePath, message, (err) => {
         console.log('File content:', data);
     });
 });
+
+const logger = require('./logger.js');
+logger.log();
