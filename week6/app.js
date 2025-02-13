@@ -25,17 +25,22 @@ const logger = require('./logger.js');
 logger.log();
 console.log('Logger version:', logger.version);
 
-const express = require('express'); // Import Express
-const app = express();             // Create an Express application
+const express = require('express');
+const app = express();
 
-// Define a GET route for the root path
-app.get('/', function(req, res) {
-  res.send('Hello World!'); // Respond with "Hello World!"
+// Root route
+app.get('/', (req, res) => {
+    res.send('Hello World!');
 });
 
-// Start the server and listen on port 3000
+// Tasks route
+app.get('/tasks', (req, res) => {
+    res.send('<h1>List of all the tasks</h1>');
+});
+
+// Start the server
 const port = 3000;
-app.listen(port, function() {
-  console.log(`Example app listening on port ${port}!`);
+app.listen(port, () => {
+    console.log(`Server is running on http://localhost:${port}`);
 });
 
