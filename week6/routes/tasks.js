@@ -21,10 +21,24 @@ router.get('/', (req, res) => {
 });
 
 
-// Route for /tasks/:taskId
+// Fetch a specific task by ID and render it using Pug
 router.get('/:taskId', (req, res) => {
-    const taskId = req.params.taskId; // Extract taskId from the route
-    res.render('task', { id: taskId }); // Render the Pug template with taskId
+    const taskId = req.params.taskId;
+    const url = `https://jsonplaceholder.typicode.com/todos/${taskId}`;
+
+    axios.get(url)
+        .then(response => {
+            const task = response.data;
+            res.render('task', {
+                id: task.id,
+                title: task.title,
+                completed: task.completed ? "Completed" : "Not Completed"
+            });
+        })
+        .catch(error => {
+            console.error(`Error fetching task ${taskId}:`, error);
+            res.status(500).send('Task not found or failed to fetch task details.');
+        });
 });
 
 // Route for /tasks/:taskId/:userId
