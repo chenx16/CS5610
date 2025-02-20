@@ -1,9 +1,9 @@
-const fs = require('fs');
-// Define the file path and message
-const filePath = 'message.txt';
-const message = 'Hello, this is a message written using Node.js!';
+// const fs = require('fs');
+// // Define the file path and message
+// const filePath = 'message.txt';
+// const message = 'Hello, this is a message written using Node.js!';
 
-// Write the message to a new file
+// // Write the message to a new file
 // fs.writeFile(filePath, message, (err) => {
 //     if (err) {
 //         console.error('Error writing to file:', err);
@@ -20,6 +20,48 @@ const message = 'Hello, this is a message written using Node.js!';
 //         console.log('File content:', data);
 //     });
 // });
+
+const fs = require('fs');
+const util = require('util');
+
+// Convert fs.writeFile and fs.readFile into promise-based functions
+const writeFile = util.promisify(fs.writeFile);
+const readFile = util.promisify(fs.readFile);
+
+const filePath = 'message.txt';
+const message = 'Hello, this is a message written using Node.js with async/await!';
+
+// Write to file and then read it using .then() and .catch()
+// writeFile(filePath, message)
+//     .then(() => {
+//         console.log('File written successfully.');
+//         return readFile(filePath, 'utf8'); // Return the promise
+//     })
+//     .then((data) => {
+//         console.log('File content:', data);
+//     })
+//     .catch((err) => {
+//         console.error('Error:', err);
+//     });
+
+// Function using async/await
+async function writeAndReadFile() {
+    try {
+        await writeFile(filePath, message);
+        console.log('File written successfully.');
+
+        const data = await readFile(filePath, 'utf8');
+        console.log('File content:', data);
+    } catch (err) {
+        console.error('Error:', err);
+    }
+}
+
+// Call the function (Ensure .then() is removed)
+writeAndReadFile();
+
+
+
 
 const logger = require('./logger.js');
 logger.log();
