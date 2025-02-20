@@ -21,24 +21,33 @@ router.get('/', (req, res) => {
 });
 
 
-// Fetch a specific task by ID and render it using Pug
-router.get('/:taskId', (req, res) => {
+// Fetch a specific task by ID and also fetch user details
+router.get('/:taskId', async (req, res) => {
     const taskId = req.params.taskId;
-    const url = `https://jsonplaceholder.typicode.com/todos/${taskId}`;
+    const taskUrl = `https://jsonplaceholder.typicode.com/todos/${taskId}`;
 
-    axios.get(url)
-        .then(response => {
-            const task = response.data;
-            res.render('task', {
-                id: task.id,
-                title: task.title,
-                completed: task.completed ? "Completed" : "Not Completed"
-            });
-        })
-        .catch(error => {
-            console.error(`Error fetching task ${taskId}:`, error);
-            res.status(500).send('Task not found or failed to fetch task details.');
+    try {
+        // Fetch task details
+        const taskResponse = await axios.get(taskUrl);
+        const task = taskResponse.data;
+
+        // Fetch user details using userId from the task
+        const userUrl = `https://jsonplaceholder.typicode.com/users/${task.userId}`;
+        const userResponse = await axios.get(userUrl);
+        const user = userResponse.data;
+
+        // Render the Pug template with task and user details
+        res.render('task', {
+            id: task.id,
+            title: task.title,
+            completed: task.completed ? "Completed" : "Not Completed",
+            userName: user.name // User's name
         });
+
+    } catch (error) {
+        console.error(`Error fetching task ${taskId}:`, error);
+        res.status(500).send('Task not found or failed to fetch task details.');
+    }
 });
 
 // Route for /tasks/:taskId/:userId
