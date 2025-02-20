@@ -3,7 +3,7 @@
 // const filePath = 'message.txt';
 // const message = 'Hello, this is a message written using Node.js!';
 
-// // Write the message to a new file
+// Write the message to a new file
 // fs.writeFile(filePath, message, (err) => {
 //     if (err) {
 //         console.error('Error writing to file:', err);
@@ -80,9 +80,9 @@ app.get('/', (req, res) => {
 });
 
 // Tasks route
-app.get('/tasks', (req, res) => {
-    res.send('<h1>List of all the tasks</h1>');
-});
+// app.get('/tasks', (req, res) => {
+//     res.send('<h1>List of all the tasks</h1>');
+// });
 
 
 // Set Pug as the view engine
@@ -95,15 +95,15 @@ app.set('views', './views');
 app.use('/tasks', tasksRouter);
 
 // Route to handle taskId parameter
-app.get('/tasks/:taskId', (req, res) => {
-    const taskId = req.params.taskId; // Extract taskId from the route
-    res.send(`You are viewing task ${taskId}`);
-});
+// app.get('/tasks/:taskId', (req, res) => {
+//     const taskId = req.params.taskId; // Extract taskId from the route
+//     res.send(`You are viewing task ${taskId}`);
+// });
 
-app.get('/tasks/:taskId/:userId', (req, res) => {
-    const { taskId, userId } = req.params; // Extract taskId and userId
-    res.send(`You are viewing task ${taskId} for user ${userId}`);
-});
+// app.get('/tasks/:taskId/:userId', (req, res) => {
+//     const { taskId, userId } = req.params; // Extract taskId and userId
+//     res.send(`You are viewing task ${taskId} for user ${userId}`);
+// });
 
 
 // Start the server
