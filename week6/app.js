@@ -1,7 +1,7 @@
-const fs = require('fs');
-// Define the file path and message
-const filePath = 'message.txt';
-const message = 'Hello, this is a message written using Node.js!';
+// const fs = require('fs');
+// // Define the file path and message
+// const filePath = 'message.txt';
+// const message = 'Hello, this is a message written using Node.js!';
 
 // Write the message to a new file
 // fs.writeFile(filePath, message, (err) => {
@@ -21,6 +21,48 @@ const message = 'Hello, this is a message written using Node.js!';
 //     });
 // });
 
+const fs = require('fs');
+const util = require('util');
+
+// Convert fs.writeFile and fs.readFile into promise-based functions
+const writeFile = util.promisify(fs.writeFile);
+const readFile = util.promisify(fs.readFile);
+
+const filePath = 'message.txt';
+const message = 'Hello, this is a message written using Node.js with async/await!';
+
+// Write to file and then read it using .then() and .catch()
+// writeFile(filePath, message)
+//     .then(() => {
+//         console.log('File written successfully.');
+//         return readFile(filePath, 'utf8'); // Return the promise
+//     })
+//     .then((data) => {
+//         console.log('File content:', data);
+//     })
+//     .catch((err) => {
+//         console.error('Error:', err);
+//     });
+
+// Function using async/await
+async function writeAndReadFile() {
+    try {
+        await writeFile(filePath, message);
+        console.log('File written successfully.');
+
+        const data = await readFile(filePath, 'utf8');
+        console.log('File content:', data);
+    } catch (err) {
+        console.error('Error:', err);
+    }
+}
+
+// Call the function (Ensure .then() is removed)
+writeAndReadFile();
+
+
+
+
 const logger = require('./logger.js');
 logger.log();
 console.log('Logger version:', logger.version);
@@ -38,9 +80,9 @@ app.get('/', (req, res) => {
 });
 
 // Tasks route
-app.get('/tasks', (req, res) => {
-    res.send('<h1>List of all the tasks</h1>');
-});
+// app.get('/tasks', (req, res) => {
+//     res.send('<h1>List of all the tasks</h1>');
+// });
 
 
 // Set Pug as the view engine
@@ -53,15 +95,15 @@ app.set('views', './views');
 app.use('/tasks', tasksRouter);
 
 // Route to handle taskId parameter
-app.get('/tasks/:taskId', (req, res) => {
-    const taskId = req.params.taskId; // Extract taskId from the route
-    res.send(`You are viewing task ${taskId}`);
-});
+// app.get('/tasks/:taskId', (req, res) => {
+//     const taskId = req.params.taskId; // Extract taskId from the route
+//     res.send(`You are viewing task ${taskId}`);
+// });
 
-app.get('/tasks/:taskId/:userId', (req, res) => {
-    const { taskId, userId } = req.params; // Extract taskId and userId
-    res.send(`You are viewing task ${taskId} for user ${userId}`);
-});
+// app.get('/tasks/:taskId/:userId', (req, res) => {
+//     const { taskId, userId } = req.params; // Extract taskId and userId
+//     res.send(`You are viewing task ${taskId} for user ${userId}`);
+// });
 
 
 // Start the server
