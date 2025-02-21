@@ -2,8 +2,10 @@ doctype html
 html(lang="en")
   head
     title= "Task Details"
+    link(rel="stylesheet", href="/styles.css")
   body
-    h1 You are viewing task #{id}
-    p Task title: #{title}
-    p #{userName} responsible for this task
-    p Task status: "#{completed}"
+    h1 You are viewing task #{id} using a template
+    ul
+      li The title of the task is #{title}
+      li The task is #{completed}
+      li #{userName} is responsible for this
