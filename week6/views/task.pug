@@ -3,7 +3,8 @@ html(lang="en")
   head
     title= "Task Details"
   body
-    h1 You are viewing task #{id}
-    p Task title: #{title}
-    p Task status: "#{completed}"
-    p #{userName} responsible for this task
+    h1 You are viewing task #{id} using a template
+    ul
+      li The title of the task is #{title}
+      li The task is #{completed}
+      li #{userName} is responsible for this
