@@ -67,12 +67,11 @@ const logger = require('./logger.js');
 logger.log();
 console.log('Logger version:', logger.version);
 
+
 const express = require('express');
 const app = express();
 const tasksRouter = require('./routes/tasks'); // Import tasks router
 
-// Serve static files from the "public" folder
-app.use(express.static('public'));
 
 // Root route
 app.get('/', (req, res) => {
@@ -84,6 +83,8 @@ app.get('/', (req, res) => {
 //     res.send('<h1>List of all the tasks</h1>');
 // });
 
+// Serve static files from the "public" folder
+app.use(express.static('public'));
 
 // Set Pug as the view engine
 app.set('view engine', 'pug');
