@@ -1,8 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const axios = require("axios"); // Import axios
-const { addToDB } = require("../db");
-const path = require("path");
+const { getAllTasks, addToDB } = require("../db");
 
 // Route for /tasks
 // router.get('/', (req, res) => {
@@ -23,6 +22,19 @@ router.post("/", async (req, res) => {
     console.log("Post Handler", err);
   }
 });
+
+// Route to fetch all tasks from MongoDB and render a list
+router.get("/", async (req, res) => {
+    try {
+      const tasks = await getAllTasks(); // Fetch tasks from database
+  
+      // Render the "tasks" template, passing tasks to it
+      res.render("tasks", { tasks });
+    } catch (error) {
+      console.error("Error fetching tasks:", error);
+      res.status(500).send("Error retrieving tasks.");
+    }
+  });
 
 router.get("/", (req, res) => {
   axios

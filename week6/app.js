@@ -110,11 +110,11 @@ app.get('/newtask', (req, res) => {
 });
 
 // Start the server
-const { connect, addToDB } = require("./db");
+const { connectDB, addToDB } = require("./db");
 const port = 3000;
 app.listen(port, async () => {
   console.log(`Server is running on http://localhost:${port}`);
-  await connect(); // Connect to MongoDB after server starts
+  await connectDB(); // Connect to MongoDB after server starts
   console.log("connected to databse");
   addToDB({ task: "Reading", user: "Me" });
 });
