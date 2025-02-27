@@ -8,16 +8,25 @@ const { addToDB } = require("../db");
 //     res.send('<h1>List of all the tasks</h1>');
 // });
 
+router.get('/newtask', (req, res) => {
+    res.sendFile(path.join(__dirname, '../public', 'newtask.html'));
+});
+
 router.post("/", async (req, res) => {
   try {
     console.log(req.body);
     addToDB(req.body);
-    res.send("data received");
+    res.redirect('/tasks'); 
   } catch (err) {
     console.log("Post Handler",err);
   }
 });
 // Route for /tasks - Fetch tasks from JSONPlaceholder
+router.get('/newtask', (req, res) => {
+    res.render('newtask'); // Render the Pug form
+});
+
+
 router.get("/", (req, res) => {
   axios
     .get("https://jsonplaceholder.typicode.com/todos")
