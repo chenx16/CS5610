@@ -2,14 +2,16 @@ const express = require("express");
 const router = express.Router();
 const axios = require("axios"); // Import axios
 const { addToDB } = require("../db");
+const path = require('path');
 
 // Route for /tasks
 // router.get('/', (req, res) => {
 //     res.send('<h1>List of all the tasks</h1>');
 // });
 
+// Route for /tasks - Fetch tasks from JSONPlaceholder
 router.get('/newtask', (req, res) => {
-    res.sendFile(path.join(__dirname, '../public', 'newtask.html'));
+    res.render('newtask'); // Render the Pug form
 });
 
 router.post("/", async (req, res) => {
@@ -21,10 +23,7 @@ router.post("/", async (req, res) => {
     console.log("Post Handler",err);
   }
 });
-// Route for /tasks - Fetch tasks from JSONPlaceholder
-router.get('/newtask', (req, res) => {
-    res.render('newtask'); // Render the Pug form
-});
+
 
 
 router.get("/", (req, res) => {

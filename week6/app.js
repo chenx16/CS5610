@@ -104,6 +104,11 @@ app.use("/tasks", tasksRouter);
 //     res.send(`You are viewing task ${taskId} for user ${userId}`);
 // });
 
+// Redirect /newtask to /tasks/newtask
+app.get('/newtask', (req, res) => {
+    res.redirect('/tasks/newtask');
+});
+
 // Start the server
 const { connect, addToDB } = require("./db");
 const port = 3000;
