@@ -78,7 +78,8 @@ app.get("/", (req, res) => {
 // app.get('/tasks', (req, res) => {
 //     res.send('<h1>List of all the tasks</h1>');
 // });
-
+app.use(express.json())
+app.use(express.urlencoded({extended:true}));
 // Serve static files from the "public" folder
 app.use(express.static("public"));
 
@@ -90,6 +91,7 @@ app.set("views", "./views");
 
 // Mount the tasks router at /tasks
 app.use("/tasks", tasksRouter);
+
 
 // Route to handle taskId parameter
 // app.get('/tasks/:taskId', (req, res) => {
