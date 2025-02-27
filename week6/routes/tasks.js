@@ -2,7 +2,7 @@ const express = require("express");
 const router = express.Router();
 const axios = require("axios"); // Import axios
 const { addToDB } = require("../db");
-const path = require('path');
+const path = require("path");
 
 // Route for /tasks
 // router.get('/', (req, res) => {
@@ -10,21 +10,19 @@ const path = require('path');
 // });
 
 // Route for /tasks - Fetch tasks from JSONPlaceholder
-router.get('/newtask', (req, res) => {
-    res.render('newtask'); // Render the Pug form
+router.get("/newtask", (req, res) => {
+  res.render("newtask"); // Render the Pug form
 });
 
 router.post("/", async (req, res) => {
   try {
     console.log(req.body);
     addToDB(req.body);
-    res.redirect('/tasks'); 
+    res.redirect("/tasks");
   } catch (err) {
-    console.log("Post Handler",err);
+    console.log("Post Handler", err);
   }
 });
-
-
 
 router.get("/", (req, res) => {
   axios
