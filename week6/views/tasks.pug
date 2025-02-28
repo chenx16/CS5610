@@ -6,6 +6,7 @@ html(lang="en")
     h1 All Tasks
     ul
       each task in tasks
-        li
-          a(href=`/tasks/${task._id}`) #{task.title} 
-          | (#{task.completed ? "completed" : "not completed"})
+        if task.title
+          li
+            a(href=`/tasks/${task._id}`) #{task.title} 
+            | (#{task.completed ? "completed" : "not completed"})
