@@ -39,4 +39,19 @@ async function getAllTasks() {
   }
 }
 
-module.exports = { connectDB, addToDB, getAllTasks };
+// Function to find one task by query
+async function findOneTask(query) {
+    try {
+      const task = await client.db("cs5610").collection("tasks").findOne(query);
+      if (!task) {
+        console.log("No task found with this query.");
+        return null;
+      }
+      return task;
+    } catch (err) {
+      console.error("findOneTask Error:", err);
+      return null;
+    }
+  }
+  
+  module.exports = { connectDB, addToDB, getAllTasks, findOneTask };
