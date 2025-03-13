@@ -1,10 +1,10 @@
 import Header from "./components/Header";
 
 function App() {
-  const appName = "Welcome to My App!";
+  const appName = "Welcome to My App";
 
   return (
-    <div>
+    <div className="app-container">
       <Header appName={appName} />
     </div>
   );
