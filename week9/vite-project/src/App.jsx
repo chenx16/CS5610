@@ -1,4 +1,5 @@
 import Header from "./components/Header";
+import AddTask from "./components/AddTask";
 import TasksList from "./components/TasksList";
 
 function App() {
@@ -7,6 +8,7 @@ function App() {
   return (
     <div className="app-container">
       <Header appName={appName} />
+      <AddTask />
       <TasksList />
     </div>
   );

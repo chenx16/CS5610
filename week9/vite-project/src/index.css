@@ -48,3 +48,12 @@
 .delete-icon:hover {
   color: red;
 }
+
+.form-control {
+  margin: 20px 0;
+  display: flex;
+}
+
+.form-control label {
+  margin-right: 10px;
+}
