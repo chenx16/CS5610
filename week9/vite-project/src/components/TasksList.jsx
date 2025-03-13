@@ -1,8 +1,7 @@
 import { useState } from "react";
-import PropTypes from "prop-types";
+import Task from "./Task";
 
 function TasksList() {
-  // Initialize state with the hardcoded tasks array
   const [tasks, setTasks] = useState([
     {
       id: 1,
@@ -24,14 +23,10 @@ function TasksList() {
   return (
     <ul>
       {tasks.map((task) => (
-        <li key={task.id}>
-          <strong>{task.title}</strong> - {task.date}
-        </li>
+        <Task key={task.id} task={task} />
       ))}
     </ul>
   );
 }
-
-// Remove PropTypes as tasks are now managed internally in state
 
 export default TasksList;
