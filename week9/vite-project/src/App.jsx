@@ -1,9 +1,10 @@
 import Header from "./components/Header";
+import TasksList from "./components/TasksList";
 
 function App() {
   const appName = "Welcome to My App";
 
-  // Hardcoded task list
+  // Hardcoded task list (moved to be passed as props)
   const tasks = [
     {
       id: 1,
@@ -25,13 +26,7 @@ function App() {
   return (
     <div className="app-container">
       <Header appName={appName} />
-      <ul>
-        {tasks.map((task) => (
-          <li key={task.id}>
-            <strong>{task.title}</strong> - {task.date}
-          </li>
-        ))}
-      </ul>
+      <TasksList tasks={tasks} />
     </div>
   );
 }
