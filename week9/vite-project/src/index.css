@@ -27,10 +27,24 @@
   background-color: #f0f0f0;
 }
 
-/* Style for Task component */
+/* Style for Task container */
 .task-container {
   background-color: #ececff;
   padding: 10px;
   margin: 10px 0;
   border-radius: 5px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+/* Style for Delete Icon */
+.delete-icon {
+  color: #666;
+  cursor: pointer;
+  font-size: 18px;
+}
+
+.delete-icon:hover {
+  color: red;
 }
