@@ -14,8 +14,25 @@ function AddTask() {
     setDate(event.target.value);
   };
 
+  // Handle form submission
+  const handleSubmit = (event) => {
+    event.preventDefault(); // Prevent page refresh
+
+    // Create a task object
+    const newTask = {
+      title: title,
+      date: date,
+    };
+
+    console.log("New Task Submitted:", newTask); // Log to console
+
+    // Clear input fields after submission
+    setTitle("");
+    setDate("");
+  };
+
   return (
-    <form>
+    <form onSubmit={handleSubmit}>
       <div className="form-control">
         <label>Title</label>
         <input type="text" value={title} onChange={handleTitleChange} />
