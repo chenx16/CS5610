@@ -6,21 +6,20 @@ import TasksList from "./components/TasksList";
 function App() {
   const appName = "Welcome to My App";
 
-  // State for tasks
+  // State for tasks (moved from TasksList)
   const [tasks, setTasks] = useState([]);
 
-  // Fetch tasks from the fake server
+  // Fetch tasks from JSON Server
   useEffect(() => {
     async function fetchData() {
       try {
         const response = await fetch("http://localhost:5001/tasks");
 
-        // Handle non-200 responses
         if (!response.ok) {
           throw new Error(`HTTP error! Status: ${response.status}`);
         }
 
-        const data = await response.json();
+        const data = await response.json(); // Convert response to JS object
         setTasks(data);
       } catch (error) {
         console.error("Error fetching tasks:", error);
@@ -28,7 +27,7 @@ function App() {
     }
 
     fetchData();
-  }, []); // Empty dependency array → Runs only once on mount
+  }, []);
 
   return (
     <div className="app-container">

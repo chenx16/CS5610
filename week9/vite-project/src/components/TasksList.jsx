@@ -1,41 +1,27 @@
-import { useState } from "react";
+import PropTypes from "prop-types";
 import Task from "./Task";
 
-function TasksList() {
-  const [tasks, setTasks] = useState([
-    {
-      id: 1,
-      title: "Review week 9 material",
-      date: "June 4th at 1 pm",
-    },
-    {
-      id: 2,
-      title: "Do quiz 9",
-      date: "June 4th at 6 pm",
-    },
-    {
-      id: 3,
-      title: "Work on assignment 2",
-      date: "June 5th at 8 am",
-    },
-  ]);
-
-  // Function to delete a task
-  const deleteTask = (id) => {
-    setTasks((prevTasks) => prevTasks.filter((task) => task.id !== id));
-  };
-
+function TasksList({ tasks }) {
   return (
     <ul>
       {tasks.length > 0 ? (
-        tasks.map((task) => (
-          <Task key={task.id} task={task} onDelete={deleteTask} />
-        ))
+        tasks.map((task) => <Task key={task.id} task={task} />)
       ) : (
         <li><strong>No Tasks Left</strong></li>
       )}
     </ul>
   );
 }
+
+// Define PropTypes
+TasksList.propTypes = {
+  tasks: PropTypes.arrayOf(
+    PropTypes.shape({
+      id: PropTypes.number.isRequired,
+      title: PropTypes.string.isRequired,
+      date: PropTypes.string.isRequired,
+    })
+  ).isRequired,
+};
 
 export default TasksList;
