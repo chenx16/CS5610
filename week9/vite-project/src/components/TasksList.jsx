@@ -1,11 +1,11 @@
 import PropTypes from "prop-types";
 import Task from "./Task";
 
-function TasksList({ tasks }) {
+function TasksList({ tasks, onDelete }) {
   return (
     <ul>
       {tasks.length > 0 ? (
-        tasks.map((task) => <Task key={task.id} task={task} />)
+        tasks.map((task) => <Task key={task.id} task={task} onDelete={onDelete} />)
       ) : (
         <li><strong>No Tasks Left</strong></li>
       )}
@@ -22,6 +22,7 @@ TasksList.propTypes = {
       date: PropTypes.string.isRequired,
     })
   ).isRequired,
+  onDelete: PropTypes.func.isRequired,
 };
 
 export default TasksList;
