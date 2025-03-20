@@ -9,6 +9,7 @@ function App() {
   // State for tasks
   const [tasks, setTasks] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [showForm, setShowForm] = useState(false); // Track form visibility
 
   // Fetch tasks from JSON Server
   useEffect(() => {
@@ -32,6 +33,11 @@ function App() {
     fetchData();
   }, []);
 
+  // Function to toggle form visibility
+  const toggleForm = () => {
+    setShowForm((prev) => !prev);
+  };
+
   // Function to add a new task
   const addTask = async (newTask) => {
     try {
@@ -49,6 +55,8 @@ function App() {
 
       const data = await response.json();
       setTasks((prevTasks) => [...prevTasks, data]); // Update UI with new task
+
+      setShowForm(false); // Hide form after adding a task ✅
     } catch (error) {
       console.error("Error adding task:", error);
     }
@@ -73,8 +81,8 @@ function App() {
 
   return (
     <div className="app-container">
-      <Header appName={appName} />
-      <AddTask onAddTask={addTask} />
+      <Header appName={appName} showForm={showForm} onToggleForm={toggleForm} />
+      {showForm && <AddTask onAddTask={addTask} />}
       {loading ? <p>Loading...</p> : <TasksList tasks={tasks} onDelete={deleteTask} />}
     </div>
   );
