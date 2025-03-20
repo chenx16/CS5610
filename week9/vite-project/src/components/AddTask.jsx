@@ -1,32 +1,28 @@
 import { useState } from "react";
+import PropTypes from "prop-types";
 
-function AddTask() {
-  // State variables for input fields
+function AddTask({ onAddTask }) {
   const [title, setTitle] = useState("");
   const [date, setDate] = useState("");
 
-  // Handle input changes
-  const handleTitleChange = (event) => {
-    setTitle(event.target.value);
-  };
-
-  const handleDateChange = (event) => {
-    setDate(event.target.value);
-  };
-
   // Handle form submission
   const handleSubmit = (event) => {
-    event.preventDefault(); // Prevent page refresh
+    event.preventDefault();
 
-    // Create a task object
+    if (!title || !date) {
+      alert("Please fill in both fields!");
+      return;
+    }
+
+    // Create a new task object
     const newTask = {
-      title: title,
-      date: date,
+      title,
+      date,
     };
 
-    console.log("New Task Submitted:", newTask); // Log to console
-
-    // Clear input fields after submission
+    onAddTask(newTask); // Send task to parent (App.jsx)
+    
+    // Clear input fields
     setTitle("");
     setDate("");
   };
@@ -35,15 +31,20 @@ function AddTask() {
     <form onSubmit={handleSubmit}>
       <div className="form-control">
         <label>Title</label>
-        <input type="text" value={title} onChange={handleTitleChange} />
+        <input type="text" value={title} onChange={(e) => setTitle(e.target.value)} />
       </div>
       <div className="form-control">
         <label>Date</label>
-        <input type="text" value={date} onChange={handleDateChange} />
+        <input type="text" value={date} onChange={(e) => setDate(e.target.value)} />
       </div>
       <button type="submit">Save</button>
     </form>
   );
 }
+
+// Define PropTypes
+AddTask.propTypes = {
+  onAddTask: PropTypes.func.isRequired,
+};
 
 export default AddTask;
