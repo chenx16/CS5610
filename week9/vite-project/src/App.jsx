@@ -27,7 +27,7 @@ function App() {
         console.error("Error fetching tasks:", error);
       } finally {
         setLoading(false);
-      }   
+      }
     }
 
     fetchData();
