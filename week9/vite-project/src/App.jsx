@@ -32,6 +32,28 @@ function App() {
     fetchData();
   }, []);
 
+  // Function to add a new task
+  const addTask = async (newTask) => {
+    try {
+      const response = await fetch("http://localhost:5001/tasks", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(newTask),
+      });
+
+      if (!response.ok) {
+        throw new Error(`Failed to add task. Status: ${response.status}`);
+      }
+
+      const data = await response.json();
+      setTasks((prevTasks) => [...prevTasks, data]); // Update UI with new task
+    } catch (error) {
+      console.error("Error adding task:", error);
+    }
+  };
+
   // Function to delete a task
   const deleteTask = async (id) => {
     try {
@@ -43,7 +65,6 @@ function App() {
         throw new Error(`Failed to delete task. Status: ${response.status}`);
       }
 
-      // Update UI after successful deletion
       setTasks((prevTasks) => prevTasks.filter((task) => task.id !== id));
     } catch (error) {
       console.error("Error deleting task:", error);
@@ -53,7 +74,7 @@ function App() {
   return (
     <div className="app-container">
       <Header appName={appName} />
-      <AddTask />
+      <AddTask onAddTask={addTask} />
       {loading ? <p>Loading...</p> : <TasksList tasks={tasks} onDelete={deleteTask} />}
     </div>
   );
