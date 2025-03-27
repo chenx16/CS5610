@@ -89,8 +89,7 @@ function App() {
   const navigate = useNavigate();
   const location = useLocation();
 
-  const showHeader =
-    location.pathname === "/" || location.pathname === "/tasks";
+  const showHeader = location.pathname === "/";
 
   return (
     <div className="app-container">
