@@ -1,10 +1,12 @@
 import { useState, useEffect } from "react";
+import { Routes, Route, Link, useLocation, useNavigate } from "react-router";
 import Header from "./components/Header";
 import AddTask from "./components/AddTask";
-import TasksList from "./components/TasksList";
+import TaskDetails from "./components/TaskDetails";
+import TasksPage from "./components/TasksPage";
 
 function App() {
-  const appName = "Welcome to My App";
+  // const appName = "Welcome to My App";
 
   // State for tasks
   const [tasks, setTasks] = useState([]);
@@ -39,7 +41,7 @@ function App() {
   };
 
   // Function to add a new task
-  const addTask = async (newTask) => {
+  const addTask = async (newTask, onSuccess) => {
     try {
       const response = await fetch("http://localhost:5001/tasks", {
         method: "POST",
@@ -54,9 +56,13 @@ function App() {
       }
 
       const data = await response.json();
-      setTasks((prevTasks) => [...prevTasks, data]); // Update UI with new task
+      setTasks((prevTasks) => [...prevTasks, data]); // Update UI
+      setShowForm(false); // Hide form
 
-      setShowForm(false); // Hide form after adding a task ✅
+      // ✅ Trigger navigation with new task ID
+      if (onSuccess) {
+        onSuccess(data.id);
+      }
     } catch (error) {
       console.error("Error adding task:", error);
     }
@@ -72,18 +78,50 @@ function App() {
       if (!response.ok) {
         throw new Error(`Failed to delete task. Status: ${response.status}`);
       }
-
-      setTasks((prevTasks) => prevTasks.filter((task) => task.id !== id));
+      setTasks((prev) => prev.filter((task) => task.id !== id));
+      if (location.pathname === `/tasks/${id}`) {
+        navigate("/tasks");
+      }
     } catch (error) {
       console.error("Error deleting task:", error);
     }
   };
+  const navigate = useNavigate();
+  const location = useLocation();
+
+  const showHeader = location.pathname === "/";
 
   return (
     <div className="app-container">
-      <Header appName={appName} showForm={showForm} onToggleForm={toggleForm} />
-      {showForm && <AddTask onAddTask={addTask} />}
-      {loading ? <p>Loading...</p> : <TasksList tasks={tasks} onDelete={deleteTask} />}
+      {/* Always show navigation */}
+      <nav>
+        <Link to="/">Home</Link> <Link to="/tasks">Tasks</Link>
+      </nav>
+
+      {/* Show header only for valid routes */}
+      {showHeader && (
+        <Header
+          appName="Welcome to My App"
+          showForm={showForm}
+          onToggleForm={toggleForm}
+        />
+      )}
+
+      <Routes>
+        <Route
+          path="/"
+          element={showForm ? <AddTask onAddTask={addTask} /> : null}
+        />
+        <Route
+          path="/tasks"
+          element={
+            <TasksPage tasks={tasks} onDelete={deleteTask} loading={loading} />
+          }
+        >
+          <Route path=":taskId" element={<TaskDetails />} />
+        </Route>
+        <Route path="*" element={<h1>Not Found</h1>} />
+      </Routes>
     </div>
   );
 }

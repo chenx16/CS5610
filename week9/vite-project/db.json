@@ -1,19 +1,36 @@
 {
   "tasks": [
     {
-      "id": "04a3",
+      "id": "1",
       "title": "Review week 9 material",
       "date": "June 4th at 1 pm"
     },
     {
-      "id": "caba",
+      "id": "2",
       "title": "Do quiz 9",
       "date": "June 4th at 6 pm"
     },
     {
-      "id": "1ff9",
+      "id": "3",
       "title": "Work on assignment 2",
       "date": "June 5th at 8 am"
+    }
+  ],
+  "users": [
+    {
+      "id": "1",
+      "name": "Neda",
+      "task": "1"
+    },
+    {
+      "id": "2",
+      "name": "Dan",
+      "task": "3"
+    },
+    {
+      "id": "3",
+      "name": "Adam",
+      "task": "3"
     }
   ]
 }

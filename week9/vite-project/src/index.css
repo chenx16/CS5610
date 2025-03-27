@@ -57,3 +57,8 @@
 .form-control label {
   margin-right: 10px;
 }
+
+a.active {
+  font-weight: bold;
+  color: rebeccapurple;
+}
