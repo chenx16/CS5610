@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { Routes, Route, Link } from "react-router";
 import Header from "./components/Header";
 import AddTask from "./components/AddTask";
 import TasksList from "./components/TasksList";
@@ -81,9 +82,29 @@ function App() {
 
   return (
     <div className="app-container">
+      {/* Navigation */}
+      <nav>
+        <Link to="/">Home</Link> <Link to="/tasks">Tasks</Link>
+      </nav>
+
       <Header appName={appName} showForm={showForm} onToggleForm={toggleForm} />
-      {showForm && <AddTask onAddTask={addTask} />}
-      {loading ? <p>Loading...</p> : <TasksList tasks={tasks} onDelete={deleteTask} />}
+
+      <Routes>
+        <Route
+          path="/"
+          element={<>{showForm && <AddTask onAddTask={addTask} />}</>}
+        />
+        <Route
+          path="/tasks"
+          element={
+            loading ? (
+              <p>Loading...</p>
+            ) : (
+              <TasksList tasks={tasks} onDelete={deleteTask} />
+            )
+          }
+        />
+      </Routes>
     </div>
   );
 }
