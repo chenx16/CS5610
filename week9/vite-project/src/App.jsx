@@ -3,6 +3,8 @@ import { Routes, Route, Link, useLocation } from "react-router";
 import Header from "./components/Header";
 import AddTask from "./components/AddTask";
 import TasksList from "./components/TasksList";
+import TaskDetails from "./components/TaskDetails";
+import TasksPage from "./components/TasksPage";
 
 function App() {
   // const appName = "Welcome to My App";
@@ -108,13 +110,11 @@ function App() {
         <Route
           path="/tasks"
           element={
-            loading ? (
-              <p>Loading...</p>
-            ) : (
-              <TasksList tasks={tasks} onDelete={deleteTask} />
-            )
+            <TasksPage tasks={tasks} onDelete={deleteTask} loading={loading} />
           }
-        />
+        >
+          <Route path=":taskId" element={<TaskDetails />} />
+        </Route>
         <Route path="*" element={<h1>Not Found</h1>} />
       </Routes>
     </div>
