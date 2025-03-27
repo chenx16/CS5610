@@ -1,8 +1,7 @@
 import { useState, useEffect } from "react";
-import { Routes, Route, Link, useLocation } from "react-router";
+import { Routes, Route, Link, useLocation, useNavigate } from "react-router";
 import Header from "./components/Header";
 import AddTask from "./components/AddTask";
-import TasksList from "./components/TasksList";
 import TaskDetails from "./components/TaskDetails";
 import TasksPage from "./components/TasksPage";
 
@@ -79,12 +78,15 @@ function App() {
       if (!response.ok) {
         throw new Error(`Failed to delete task. Status: ${response.status}`);
       }
-
-      setTasks((prevTasks) => prevTasks.filter((task) => task.id !== id));
+      setTasks((prev) => prev.filter((task) => task.id !== id));
+      if (location.pathname === `/tasks/${id}`) {
+        navigate("/tasks");
+      }
     } catch (error) {
       console.error("Error deleting task:", error);
     }
   };
+  const navigate = useNavigate();
   const location = useLocation();
 
   const showHeader =
