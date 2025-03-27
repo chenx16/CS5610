@@ -1,11 +1,11 @@
 import { useState, useEffect } from "react";
-import { Routes, Route, Link } from "react-router";
+import { Routes, Route, Link, useLocation } from "react-router";
 import Header from "./components/Header";
 import AddTask from "./components/AddTask";
 import TasksList from "./components/TasksList";
 
 function App() {
-  const appName = "Welcome to My App";
+  // const appName = "Welcome to My App";
 
   // State for tasks
   const [tasks, setTasks] = useState([]);
@@ -79,20 +79,31 @@ function App() {
       console.error("Error deleting task:", error);
     }
   };
+  const location = useLocation();
+
+  const showHeader =
+    location.pathname === "/" || location.pathname === "/tasks";
 
   return (
     <div className="app-container">
-      {/* Navigation */}
+      {/* Always show navigation */}
       <nav>
         <Link to="/">Home</Link> <Link to="/tasks">Tasks</Link>
       </nav>
 
-      <Header appName={appName} showForm={showForm} onToggleForm={toggleForm} />
+      {/* Show header only for valid routes */}
+      {showHeader && (
+        <Header
+          appName="Welcome to My App"
+          showForm={showForm}
+          onToggleForm={toggleForm}
+        />
+      )}
 
       <Routes>
         <Route
           path="/"
-          element={<>{showForm && <AddTask onAddTask={addTask} />}</>}
+          element={showForm ? <AddTask onAddTask={addTask} /> : null}
         />
         <Route
           path="/tasks"
@@ -104,6 +115,7 @@ function App() {
             )
           }
         />
+        <Route path="*" element={<h1>Not Found</h1>} />
       </Routes>
     </div>
   );
