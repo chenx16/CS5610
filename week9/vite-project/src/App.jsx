@@ -42,7 +42,7 @@ function App() {
   };
 
   // Function to add a new task
-  const addTask = async (newTask) => {
+  const addTask = async (newTask, onSuccess) => {
     try {
       const response = await fetch("http://localhost:5001/tasks", {
         method: "POST",
@@ -57,9 +57,13 @@ function App() {
       }
 
       const data = await response.json();
-      setTasks((prevTasks) => [...prevTasks, data]); // Update UI with new task
+      setTasks((prevTasks) => [...prevTasks, data]); // Update UI
+      setShowForm(false); // Hide form
 
-      setShowForm(false); // Hide form after adding a task ✅
+      // ✅ Trigger navigation with new task ID
+      if (onSuccess) {
+        onSuccess(data.id);
+      }
     } catch (error) {
       console.error("Error adding task:", error);
     }

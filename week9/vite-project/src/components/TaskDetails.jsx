@@ -17,7 +17,9 @@ function TaskDetails() {
         setTask(taskData);
 
         // Fetch users assigned to this task
-        const usersRes = await fetch(`http://localhost:5001/users?task=${taskId}`);
+        const usersRes = await fetch(
+          `http://localhost:5001/users?task=${taskId}`
+        );
         const usersData = await usersRes.json();
         setUsers(usersData);
       } catch (err) {
@@ -34,7 +36,9 @@ function TaskDetails() {
   if (!task) return <p>Task not found.</p>;
 
   return (
-    <div style={{ marginTop: "1rem", backgroundColor: "#f3f3f3", padding: "1rem" }}>
+    <div
+      style={{ marginTop: "1rem", backgroundColor: "#f3f3f3", padding: "1rem" }}
+    >
       <h3>{task.title}</h3>
       <p>Date: {task.date}</p>
 
