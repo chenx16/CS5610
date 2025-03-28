@@ -20,6 +20,8 @@
 //         console.log('File content:', data);
 //     });
 // });
+const tasksRouter = require("./routes/tasks");
+app.use("/", tasksRouter);
 
 const fs = require("fs");
 const util = require("util");
