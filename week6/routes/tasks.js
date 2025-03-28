@@ -37,17 +37,27 @@ router.get("/", async (req, res) => {
   }
 });
 
-router.get("/", (req, res) => {
-  axios
-    .get("https://jsonplaceholder.typicode.com/todos")
-    .then((response) => {
-      res.json(response.data); // Send the fetched JSON data to the client
-    })
-    .catch((error) => {
-      console.error("Error fetching tasks:", error);
-      res.status(500).json({ error: "Failed to fetch tasks" });
-    });
+// POST from Pug form (can remove if only using API)
+router.post("/tasks", async (req, res) => {
+  try {
+    await addToDB(req.body);
+    res.redirect("/tasks");
+  } catch (error) {
+    res.status(500).send("Error adding task");
+  }
 });
+
+// router.get("/", (req, res) => {
+//   axios
+//     .get("https://jsonplaceholder.typicode.com/todos")
+//     .then((response) => {
+//       res.json(response.data); // Send the fetched JSON data to the client
+//     })
+//     .catch((error) => {
+//       console.error("Error fetching tasks:", error);
+//       res.status(500).json({ error: "Failed to fetch tasks" });
+//     });
+// });
 
 // Fetch a specific task by ID and also fetch user details
 // router.get("/:taskId", async (req, res) => {
@@ -104,9 +114,20 @@ router.get("/:taskId", async (req, res) => {
 });
 
 // Route for /tasks/:taskId/:userId
-router.get("/:taskId/:userId", (req, res) => {
-  const { taskId, userId } = req.params;
-  res.send(`You are viewing task ${taskId} for user ${userId}`);
+// router.get("/:taskId/:userId", (req, res) => {
+//   const { taskId, userId } = req.params;
+//   res.send(`You are viewing task ${taskId} for user ${userId}`);
+// });
+
+// GET /api/tasks/:id - Get a specific task
+router.get("/api/tasks/:id", async (req, res) => {
+  try {
+    const task = await findOneTask(req.params.id);
+    if (!task) return res.status(404).json({ error: "Task not found" });
+    res.json(task);
+  } catch (error) {
+    res.status(500).json({ error: "Error finding task" });
+  }
 });
 
 // GET /api/tasks

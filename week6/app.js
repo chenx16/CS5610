@@ -20,8 +20,6 @@
 //         console.log('File content:', data);
 //     });
 // });
-const tasksRouter = require("./routes/tasks");
-app.use("/", tasksRouter);
 
 const fs = require("fs");
 const util = require("util");
@@ -93,6 +91,8 @@ app.set("views", "./views");
 
 // Mount the tasks router at /tasks
 app.use("/tasks", tasksRouter);
+
+app.use("/", tasksRouter);
 
 // Route to handle taskId parameter
 // app.get('/tasks/:taskId', (req, res) => {

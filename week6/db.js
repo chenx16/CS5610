@@ -18,11 +18,19 @@ async function connectDB() {
 async function addToDB(doc) {
   try {
     const result = await client.db("cs5610").collection("tasks").insertOne(doc);
-    console.log("Task added:", result.insertedId);
+    const createdTask = await client
+      .db("cs5610")
+      .collection("tasks")
+      .findOne({ _id: result.insertedId });
+
+    console.log("Task added:", createdTask);
+    return createdTask;
   } catch (err) {
     console.log("addToDB Error:", err);
+    return null;
   }
 }
+
 
 // Function to retrieve all tasks
 async function getAllTasks() {
@@ -40,18 +48,24 @@ async function getAllTasks() {
 }
 
 // Function to find one task by query
-async function findOneTask(query) {
-    try {
-      const task = await client.db("cs5610").collection("tasks").findOne(query);
-      if (!task) {
-        console.log("No task found with this query.");
-        return null;
-      }
-      return task;
-    } catch (err) {
-      console.error("findOneTask Error:", err);
+const { ObjectId } = require("mongodb");
+
+async function findOneTask(id) {
+  try {
+    const objectId = new ObjectId(id); // Convert string to ObjectId
+    const task = await client.db("cs5610").collection("tasks").findOne({ _id: objectId });
+
+    if (!task) {
+      console.log("No task found with this ID.");
       return null;
     }
+
+    return task;
+  } catch (err) {
+    console.error("findOneTask Error:", err);
+    return null;
   }
+}
+
   
   module.exports = { connectDB, addToDB, getAllTasks, findOneTask };
