@@ -17,7 +17,7 @@ function App() {
   useEffect(() => {
     async function fetchData() {
       try {
-        const response = await fetch("http://localhost:5001/tasks");
+        const response = await fetch("http://localhost:3000/api/tasks");
 
         if (!response.ok) {
           throw new Error(`HTTP error! Status: ${response.status}`);
@@ -43,7 +43,7 @@ function App() {
   // Function to add a new task
   const addTask = async (newTask, onSuccess) => {
     try {
-      const response = await fetch("http://localhost:5001/tasks", {
+      const response = await fetch(`${import.meta.env.VITE_API_BASE}/api/tasks`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -61,7 +61,7 @@ function App() {
 
       // ✅ Trigger navigation with new task ID
       if (onSuccess) {
-        onSuccess(data.id);
+        onSuccess(data._id);
       }
     } catch (error) {
       console.error("Error adding task:", error);
