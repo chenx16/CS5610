@@ -17,7 +17,7 @@ function App() {
   useEffect(() => {
     async function fetchData() {
       try {
-        const response = await fetch("http://localhost:5001/tasks");
+        const response = await fetch("http://localhost:3000/api/tasks");
 
         if (!response.ok) {
           throw new Error(`HTTP error! Status: ${response.status}`);
@@ -43,7 +43,7 @@ function App() {
   // Function to add a new task
   const addTask = async (newTask, onSuccess) => {
     try {
-      const response = await fetch("http://localhost:5001/tasks", {
+      const response = await fetch("http://localhost:3000/api/tasks", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -61,7 +61,7 @@ function App() {
 
       // ✅ Trigger navigation with new task ID
       if (onSuccess) {
-        onSuccess(data.id);
+        onSuccess(data._id);
       }
     } catch (error) {
       console.error("Error adding task:", error);
@@ -71,14 +71,14 @@ function App() {
   // Function to delete a task
   const deleteTask = async (id) => {
     try {
-      const response = await fetch(`http://localhost:5001/tasks/${id}`, {
+      const response = await fetch(`http://localhost:3000/api/tasks/${id}`, {
         method: "DELETE",
       });
 
       if (!response.ok) {
         throw new Error(`Failed to delete task. Status: ${response.status}`);
       }
-      setTasks((prev) => prev.filter((task) => task.id !== id));
+      setTasks((prev) => prev.filter((task) => task._id !== id));
       if (location.pathname === `/tasks/${id}`) {
         navigate("/tasks");
       }

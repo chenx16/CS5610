@@ -18,9 +18,11 @@ async function connectDB() {
 async function addToDB(doc) {
   try {
     const result = await client.db("cs5610").collection("tasks").insertOne(doc);
-    console.log("Task added:", result.insertedId);
+    console.log("✅ Task added with ID:", result.insertedId);
+    return { _id: result.insertedId, ...doc }; // Return full task
   } catch (err) {
-    console.log("addToDB Error:", err);
+    console.error("❌ addToDB Error:", err);
+    throw err;
   }
 }
 
@@ -40,18 +42,57 @@ async function getAllTasks() {
 }
 
 // Function to find one task by query
+const { ObjectId } = require("mongodb");
+
 async function findOneTask(query) {
-    try {
-      const task = await client.db("cs5610").collection("tasks").findOne(query);
-      if (!task) {
-        console.log("No task found with this query.");
-        return null;
-      }
-      return task;
-    } catch (err) {
-      console.error("findOneTask Error:", err);
-      return null;
-    }
+  try {
+    const task = await client.db("cs5610").collection("tasks").findOne(query);
+    return task;
+  } catch (err) {
+    console.error("findOneTask Error:", err);
+    return null;
   }
-  
-  module.exports = { connectDB, addToDB, getAllTasks, findOneTask };
+}
+
+
+async function getUsersByTask(taskId) {
+  try {
+    return await client.db("cs5610").collection("users").find({ task: taskId }).toArray();
+  } catch (err) {
+    console.error("getUsersByTask Error:", err);
+    return [];
+  }
+}
+async function deleteTaskById(id) {
+  try {
+    if (!ObjectId.isValid(id)) {
+      console.error("❌ Invalid ObjectId:", id);
+      return { deletedCount: 0 };
+    }
+
+    const objectId = new ObjectId(id.toString());
+
+    const result = await client
+      .db("cs5610")
+      .collection("tasks")
+      .deleteOne({ _id: objectId });
+
+    console.log("🗑️ Deleted count:", result.deletedCount);
+    return result;
+  } catch (err) {
+    console.error("deleteTaskById Error:", err);
+    return { deletedCount: 0 };
+  }
+}
+
+
+
+
+module.exports = {
+  connectDB,
+  addToDB,
+  getAllTasks,
+  findOneTask,
+  getUsersByTask,
+  deleteTaskById, 
+};

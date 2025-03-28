@@ -10,41 +10,42 @@ function TaskDetails() {
   useEffect(() => {
     async function fetchTaskAndUsers() {
       try {
-        // Fetch task details
-        const taskRes = await fetch(`http://localhost:5001/tasks/${taskId}`);
-        if (!taskRes.ok) throw new Error("Task not found");
+        // Fetch task
+        const taskRes = await fetch(
+          `http://localhost:3000/api/tasks/${taskId}`
+        );
         const taskData = await taskRes.json();
         setTask(taskData);
 
         // Fetch users assigned to this task
         const usersRes = await fetch(
-          `http://localhost:5001/users?task=${taskId}`
+          `http://localhost:3000/api/users?task=${taskId}`
         );
         const usersData = await usersRes.json();
         setUsers(usersData);
       } catch (err) {
-        console.error(err);
+        console.error("Error fetching task or users:", err);
       } finally {
         setLoading(false);
       }
     }
 
     fetchTaskAndUsers();
-  }, [taskId]); // re-run when taskId changes
+  }, [taskId]);
 
   if (loading) return <p>Loading...</p>;
   if (!task) return <p>Task not found.</p>;
 
   return (
     <div
-      style={{ marginTop: "1rem", backgroundColor: "#f3f3f3", padding: "1rem" }}
+      style={{ marginTop: "1rem", padding: "1rem", backgroundColor: "#f3f3f3" }}
     >
       <h3>{task.title}</h3>
       <p>Date: {task.date}</p>
 
       {users.length > 0 ? (
         users.map((user) => (
-          <p key={user.id}>{user.name} is responsible for this task</p>
+          <p key={user._id}>{user.name} is responsible for this task</p>
         ))
       ) : (
         <p>No users assigned to this task.</p>

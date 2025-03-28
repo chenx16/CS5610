@@ -65,9 +65,11 @@ const logger = require("./logger.js");
 logger.log();
 console.log("Logger version:", logger.version);
 
+const cors = require("cors");
 const express = require("express");
 const app = express();
 const tasksRouter = require("./routes/tasks"); // Import tasks router
+const usersRouter = require("./routes/users");
 
 // Root route
 app.get("/", (req, res) => {
@@ -78,6 +80,12 @@ app.get("/", (req, res) => {
 // app.get('/tasks', (req, res) => {
 //     res.send('<h1>List of all the tasks</h1>');
 // });
+app.use(cors({
+  origin: "http://localhost:5173", // allow frontend origin
+  methods: ["GET", "POST", "DELETE", "PUT"],
+  credentials: true // optional, only if you send cookies
+}));
+
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 // Serve static files from the "public" folder
@@ -92,6 +100,10 @@ app.set("views", "./views");
 // Mount the tasks router at /tasks
 app.use("/tasks", tasksRouter);
 
+app.use("/", tasksRouter);
+
+app.use("/api", tasksRouter);
+app.use("/api", usersRouter);
 // Route to handle taskId parameter
 // app.get('/tasks/:taskId', (req, res) => {
 //     const taskId = req.params.taskId; // Extract taskId from the route
