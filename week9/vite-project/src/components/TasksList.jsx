@@ -5,7 +5,7 @@ function TasksList({ tasks, onDelete }) {
   return (
     <ul>
       {tasks.length > 0 ? (
-        tasks.map((task) => <Task key={task.id} task={task} onDelete={onDelete} />)
+        tasks.map((task) => <Task key={task._id} task={task} onDelete={onDelete} />)
       ) : (
         <li><strong>No Tasks Left</strong></li>
       )}

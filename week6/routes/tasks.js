@@ -2,7 +2,7 @@ const express = require("express");
 const router = express.Router();
 const axios = require("axios"); // Import axios
 const { ObjectId } = require("mongodb");
-const { getAllTasks, addToDB, findOneTask } = require("../db");
+const { getAllTasks, addToDB, findOneTask, deleteTaskById }  = require("../db");
 
 // Route for /tasks
 // router.get('/', (req, res) => {
@@ -119,35 +119,77 @@ router.get("/:taskId", async (req, res) => {
 //   res.send(`You are viewing task ${taskId} for user ${userId}`);
 // });
 
-// GET /api/tasks/:id - Get a specific task
+// GET /tasks/:id - Get a specific task
 router.get("/api/tasks/:id", async (req, res) => {
+  const id = req.params.id;
+
   try {
-    const task = await findOneTask(req.params.id);
-    if (!task) return res.status(404).json({ error: "Task not found" });
-    res.json(task);
-  } catch (error) {
-    res.status(500).json({ error: "Error finding task" });
+    // Validate and convert id to ObjectId
+    const objectId = new ObjectId(id);
+    const task = await findOneTask({ _id: objectId });
+
+    if (!task) {
+      return res.status(404).json({ error: "Task not found" });
+    }
+
+    res.json(task); // ✅ Return JSON
+  } catch (err) {
+    console.error("Error in /api/tasks/:id:", err);
+    res.status(500).json({ error: "Failed to fetch task" });
   }
 });
 
-// GET /api/tasks
+
+// GET /tasks
 router.get("/api/tasks", async (req, res) => {
   try {
-    const tasks = await getAllTasks();
-    res.json(tasks); // ✅ Send JSON instead of rendering
+    const tasks = await getAllTasks(); // from db.js
+    res.json(tasks); // ✅ MUST use res.json() here
   } catch (err) {
+    console.error("Error fetching tasks:", err);
     res.status(500).json({ error: "Failed to fetch tasks" });
   }
 });
 
-// POST /api/tasks
+
+// POST /tasks
+// router.post("/tasks", async (req, res) => {
+//   try {
+//     const result = await addToDB(req.body);
+//     res.status(201).json(result); // ✅ Return the created task
+//   } catch (err) {
+//     res.status(500).json({ error: "Failed to add task" });
+//   }
+// });
+
 router.post("/api/tasks", async (req, res) => {
   try {
-    const result = await addToDB(req.body);
-    res.status(201).json(result); // ✅ Return the created task
+    const result = await addToDB(req.body); // this should return the inserted task
+    res.status(201).json(result); // ✅ send JSON, not redirect
   } catch (err) {
+    console.error("❌ Failed to add task:", err);
     res.status(500).json({ error: "Failed to add task" });
   }
 });
+
+router.delete("/api/tasks/:id", async (req, res) => {
+  const taskId = req.params.id;
+  console.log("🔻 DELETE requested for task ID:", taskId);
+
+  try {
+    const result = await deleteTaskById(taskId);
+
+    if (result.deletedCount === 0) {
+      return res.status(404).json({ error: "Task not found" });
+    }
+
+    res.status(200).json({ message: "Task deleted" });
+  } catch (error) {
+    console.error("❌ Error deleting task:", error);
+    res.status(500).json({ error: "Failed to delete task" });
+  }
+});
+
+
 
 module.exports = router;

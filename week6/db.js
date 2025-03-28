@@ -18,16 +18,11 @@ async function connectDB() {
 async function addToDB(doc) {
   try {
     const result = await client.db("cs5610").collection("tasks").insertOne(doc);
-    const createdTask = await client
-      .db("cs5610")
-      .collection("tasks")
-      .findOne({ _id: result.insertedId });
-
-    console.log("Task added:", createdTask);
-    return createdTask;
+    console.log("✅ Task added with ID:", result.insertedId);
+    return { _id: result.insertedId, ...doc }; // Return full task
   } catch (err) {
-    console.log("addToDB Error:", err);
-    return null;
+    console.error("❌ addToDB Error:", err);
+    throw err;
   }
 }
 
@@ -49,39 +44,49 @@ async function getAllTasks() {
 // Function to find one task by query
 const { ObjectId } = require("mongodb");
 
-async function findOneTask(id) {
+async function findOneTask(query) {
   try {
-    const objectId = new ObjectId(id); // Convert string to ObjectId
-    const task = await client
-      .db("cs5610")
-      .collection("tasks")
-      .findOne({ _id: objectId });
-
-    if (!task) {
-      console.log("No task found with this ID.");
-      return null;
-    }
-
+    const task = await client.db("cs5610").collection("tasks").findOne(query);
     return task;
   } catch (err) {
     console.error("findOneTask Error:", err);
     return null;
   }
 }
+
+
 async function getUsersByTask(taskId) {
   try {
-    const users = await client
-      .db("cs5610")
-      .collection("users")
-      .find({ task: taskId }) // task is a string field
-      .toArray();
-
-    return users;
+    return await client.db("cs5610").collection("users").find({ task: taskId }).toArray();
   } catch (err) {
     console.error("getUsersByTask Error:", err);
     return [];
   }
 }
+async function deleteTaskById(id) {
+  try {
+    if (!ObjectId.isValid(id)) {
+      console.error("❌ Invalid ObjectId:", id);
+      return { deletedCount: 0 };
+    }
+
+    const objectId = new ObjectId(id.toString());
+
+    const result = await client
+      .db("cs5610")
+      .collection("tasks")
+      .deleteOne({ _id: objectId });
+
+    console.log("🗑️ Deleted count:", result.deletedCount);
+    return result;
+  } catch (err) {
+    console.error("deleteTaskById Error:", err);
+    return { deletedCount: 0 };
+  }
+}
+
+
+
 
 module.exports = {
   connectDB,
@@ -89,4 +94,5 @@ module.exports = {
   getAllTasks,
   findOneTask,
   getUsersByTask,
+  deleteTaskById, 
 };

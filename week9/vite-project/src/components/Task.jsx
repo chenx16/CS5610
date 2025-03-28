@@ -12,7 +12,7 @@ function Task({ task, onDelete }) {
           </NavLink>
           <p>{task.date}</p>
         </div>
-        <FaTrash className="delete-icon" onClick={() => onDelete(task.id)} />
+        <FaTrash className="delete-icon" onClick={() => onDelete(task._id)} />
       </div>
     </li>
   );

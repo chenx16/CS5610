@@ -17,7 +17,7 @@ function AddTask({ onAddTask }) {
     }
 
     const newTask = { title, date };
-
+    console.log("Submitting new task:", newTask);
     // ✅ Pass callback to handle navigation
     onAddTask(newTask, (newId) => {
       navigate(`/tasks/${newId}`);
