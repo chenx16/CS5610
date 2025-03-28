@@ -68,6 +68,7 @@ console.log("Logger version:", logger.version);
 const express = require("express");
 const app = express();
 const tasksRouter = require("./routes/tasks"); // Import tasks router
+const usersRouter = require("./routes/users");
 
 // Root route
 app.get("/", (req, res) => {
@@ -94,6 +95,7 @@ app.use("/tasks", tasksRouter);
 
 app.use("/", tasksRouter);
 
+app.use("/", usersRouter);
 // Route to handle taskId parameter
 // app.get('/tasks/:taskId', (req, res) => {
 //     const taskId = req.params.taskId; // Extract taskId from the route

@@ -31,7 +31,6 @@ async function addToDB(doc) {
   }
 }
 
-
 // Function to retrieve all tasks
 async function getAllTasks() {
   try {
@@ -53,7 +52,10 @@ const { ObjectId } = require("mongodb");
 async function findOneTask(id) {
   try {
     const objectId = new ObjectId(id); // Convert string to ObjectId
-    const task = await client.db("cs5610").collection("tasks").findOne({ _id: objectId });
+    const task = await client
+      .db("cs5610")
+      .collection("tasks")
+      .findOne({ _id: objectId });
 
     if (!task) {
       console.log("No task found with this ID.");
@@ -66,6 +68,25 @@ async function findOneTask(id) {
     return null;
   }
 }
+async function getUsersByTask(taskId) {
+  try {
+    const users = await client
+      .db("cs5610")
+      .collection("users")
+      .find({ task: taskId }) // task is a string field
+      .toArray();
 
-  
-  module.exports = { connectDB, addToDB, getAllTasks, findOneTask };
+    return users;
+  } catch (err) {
+    console.error("getUsersByTask Error:", err);
+    return [];
+  }
+}
+
+module.exports = {
+  connectDB,
+  addToDB,
+  getAllTasks,
+  findOneTask,
+  getUsersByTask,
+};
