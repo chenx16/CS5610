@@ -6,6 +6,8 @@ import TaskDetails from "./components/TaskDetails";
 import TasksPage from "./components/TasksPage";
 import AuthenticationButton from "./components/AuthenticationButton";
 import Profile from "./components/Profile";
+import ProtectedRoute from "./components/ProtectedRoute";
+
 
 function App() {
   // const appName = "Welcome to My App";
@@ -124,7 +126,7 @@ function App() {
         >
           <Route path=":taskId" element={<TaskDetails />} />
         </Route>
-        <Route path="/profile" element={<Profile />} />
+        <Route path="/profile" element={<ProtectedRoute Component={Profile} />} />
         <Route path="*" element={<h1>Not Found</h1>} />
       </Routes>
     </div>
