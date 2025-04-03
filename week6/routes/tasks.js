@@ -86,6 +86,8 @@ router.post("/tasks", async (req, res) => {
 //     res.status(500).send("Task not found or failed to fetch task details.");
 //   }
 // });
+// Prevent favicon.ico from triggering task route
+router.get("/favicon.ico", (req, res) => res.status(204).end());
 
 // Fetch a specific task by ID and render it using Pug
 router.get("/:taskId", async (req, res) => {

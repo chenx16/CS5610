@@ -6,6 +6,7 @@ function Auth0ProviderWithHistory({ children }) {
 
   const domain = import.meta.env.VITE_AUTH0_DOMAIN;
   const clientId = import.meta.env.VITE_AUTH0_CLIENT_ID;
+  const audience = import.meta.env.VITE_AUTH0_AUDIENCE;
 
   const onRedirectCallback = (appState) => {
     navigate(appState?.returnTo || window.location.pathname);
@@ -17,6 +18,7 @@ function Auth0ProviderWithHistory({ children }) {
       clientId={clientId}
       authorizationParams={{
         redirect_uri: window.location.origin,
+        audience, // ✅ Add this line
       }}
       onRedirectCallback={onRedirectCallback}
     >
