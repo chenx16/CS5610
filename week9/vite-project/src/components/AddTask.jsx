@@ -1,12 +1,10 @@
 import { useState } from "react";
 import PropTypes from "prop-types";
-import { useNavigate } from "react-router-dom";
 import { useAuth0 } from "@auth0/auth0-react";
 
-function AddTask({ onAddTask }) {
+function AddTask() {
   const [title, setTitle] = useState("");
   const [date, setDate] = useState("");
-  const navigate = useNavigate();
   const { getAccessTokenSilently } = useAuth0();
 
   const handleSubmit = async (event) => {
@@ -61,10 +59,5 @@ function AddTask({ onAddTask }) {
     </form>
   );
 }
-
-// Define PropTypes
-AddTask.propTypes = {
-  onAddTask: PropTypes.func.isRequired,
-};
 
 export default AddTask;
