@@ -1,14 +1,13 @@
 import { useState } from "react";
 import PropTypes from "prop-types";
-import { useNavigate } from "react-router-dom";
+import { useAuth0 } from "@auth0/auth0-react";
 
-function AddTask({ onAddTask }) {
+function AddTask() {
   const [title, setTitle] = useState("");
   const [date, setDate] = useState("");
-  const navigate = useNavigate();
+  const { getAccessTokenSilently } = useAuth0();
 
-  // Handle form submission
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
 
     if (!title || !date) {
@@ -17,14 +16,25 @@ function AddTask({ onAddTask }) {
     }
 
     const newTask = { title, date };
-    console.log("Submitting new task:", newTask);
-    // ✅ Pass callback to handle navigation
-    onAddTask(newTask, (newId) => {
-      navigate(`/tasks/${newId}`);
-    });
 
-    setTitle("");
-    setDate("");
+    try {
+      const token = await getAccessTokenSilently(); // ✅ Get token from Auth0
+
+      await fetch("http://localhost:3000/api/tasks", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`, // ✅ Add the token here
+        },
+        body: JSON.stringify(newTask),
+      });
+
+      // Optionally reset input fields
+      setTitle("");
+      setDate("");
+    } catch (error) {
+      console.error("Error adding task:", error);
+    }
   };
 
   return (
@@ -49,10 +59,5 @@ function AddTask({ onAddTask }) {
     </form>
   );
 }
-
-// Define PropTypes
-AddTask.propTypes = {
-  onAddTask: PropTypes.func.isRequired,
-};
 
 export default AddTask;
