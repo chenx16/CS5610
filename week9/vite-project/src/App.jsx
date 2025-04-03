@@ -4,6 +4,8 @@ import Header from "./components/Header";
 import AddTask from "./components/AddTask";
 import TaskDetails from "./components/TaskDetails";
 import TasksPage from "./components/TasksPage";
+import LoginButton from "./components/LoginButton";
+import SignupButton from "./components/SignupButton";
 
 function App() {
   // const appName = "Welcome to My App";
@@ -96,6 +98,8 @@ function App() {
       {/* Always show navigation */}
       <nav>
         <Link to="/">Home</Link> <Link to="/tasks">Tasks</Link>
+        <LoginButton />
+        <SignupButton />
       </nav>
 
       {/* Show header only for valid routes */}
