@@ -3,6 +3,25 @@ const router = express.Router();
 const axios = require("axios"); // Import axios
 const { ObjectId } = require("mongodb");
 const { getAllTasks, addToDB, findOneTask, deleteTaskById }  = require("../db");
+const { auth } = require('express-oauth2-jwt-bearer');
+
+const checkJWT = auth({
+  audience: process.env.AUTH0_AUDIENCE,
+  issuerBaseURL: `https://${process.env.AUTH0_DOMAIN}/`,
+});
+
+router.post("/api/tasks", checkJWT, async (req, res) => {
+  const newTask = req.body;
+  console.log("🟢 Received task:", newTask);
+
+  try {
+    const result = await addToDB(newTask);
+    res.status(201).json(result);
+  } catch (err) {
+    console.error("❌ Failed to add task:", err);
+    res.status(500).json({ error: "Failed to add task" });
+  }
+});
 
 // Route for /tasks
 // router.get('/', (req, res) => {
