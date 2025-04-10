@@ -98,7 +98,7 @@ function App() {
   return (
     <div className="app-container">
       {/* Always show navigation */}
-      <NavBar />
+      <Navigation />
 
       {/* Show header only for valid routes */}
       {showHeader && (
