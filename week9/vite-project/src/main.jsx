@@ -4,6 +4,7 @@ import App from "./App.jsx";
 import { BrowserRouter } from "react-router-dom";
 import Auth0ProviderWithHistory from "./components/Auth0ProviderWithHistory";
 import './index.css'; // ✅ Required to apply styles
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <BrowserRouter>

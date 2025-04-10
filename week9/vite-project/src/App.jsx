@@ -7,7 +7,7 @@ import TasksPage from "./components/TasksPage";
 import AuthenticationButton from "./components/AuthenticationButton";
 import Profile from "./components/Profile";
 import ProtectedRoute from "./components/ProtectedRoute";
-
+import NavBar from "./components/NavBar";
 
 function App() {
   // const appName = "Welcome to My App";
@@ -98,11 +98,7 @@ function App() {
   return (
     <div className="app-container">
       {/* Always show navigation */}
-      <nav>
-        <Link to="/">Home</Link> <Link to="/tasks">Tasks</Link>
-        <AuthenticationButton />
-        <Link to="/profile">Profile</Link>
-      </nav>
+      <Navigation />
 
       {/* Show header only for valid routes */}
       {showHeader && (
