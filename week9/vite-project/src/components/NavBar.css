@@ -1,9 +1,21 @@
 .nav-container {
     border: 1px solid #ccc;
-    padding: 0.5rem;
-    margin-bottom: 1rem;
+    padding: 1rem;
+    position: relative;
   }
   
+  .nav-header {
+    display: flex;
+    justify-content: flex-end;
+  }
+  
+  .menu-icon {
+    display: none;
+    font-size: 1.5rem;
+    cursor: pointer;
+  }
+  
+  /* Navigation items */
   .nav-links {
     display: flex;
     gap: 1rem;
@@ -11,10 +23,16 @@
     flex-wrap: wrap;
   }
   
+  /* Mobile styles */
   @media (max-width: 576px) {
+    .menu-icon {
+      display: block;
+    }
+  
     .nav-links {
       flex-direction: column;
       align-items: flex-start;
+      margin-top: 1rem;
     }
   
     .nav-links button,
