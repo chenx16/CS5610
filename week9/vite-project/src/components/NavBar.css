@@ -1,0 +1,25 @@
+.nav-container {
+    border: 1px solid #ccc;
+    padding: 0.5rem;
+    margin-bottom: 1rem;
+  }
+  
+  .nav-links {
+    display: flex;
+    gap: 1rem;
+    justify-content: flex-end;
+    flex-wrap: wrap;
+  }
+  
+  @media (max-width: 576px) {
+    .nav-links {
+      flex-direction: column;
+      align-items: flex-start;
+    }
+  
+    .nav-links button,
+    .nav-links a {
+      width: 100%;
+    }
+  }
+  
